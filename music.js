@@ -28,9 +28,27 @@ function renderList() {
     $list.append($item)
   }
 }
-
+$('div.container').append('<div id=\'results\' class="row"></div>')
 $('#getPlaylistBtn').click(function (event) {
   // TODO: Display a list of music.
   // You may use anything from musicInfo.
+  $('div#results').empty();
+    musicInfo.forEach(function(val){
+    console.log(val);
+    val = val.replace(/ /g,"+");
+    console.log(val);
+    $.get(`https://itunes.apple.com/search?term=${val}&limit=5`, function(data){
+      data = JSON.parse(data);
+      console.log(data);
+      data.results.forEach(function(track){
+        let trackArtist = track.artistName;
+        let trackTitle = track.trackName;
+        let trackArt = track.artworkUrl100;
+        console.log(trackArt);
+        $('div#results').append(`<div><img src="${trackArt}" /><p>${trackArtist}</p><p><strong>${trackTitle}</strong></p></div>`);
+      });
+    });
+    
+  });
   console.log('Testing Music Call');
 });
