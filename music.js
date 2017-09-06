@@ -37,7 +37,7 @@ $('#getPlaylistBtn').click(function (event) {
     console.log(val);
     val = val.replace(/ /g,"+");
     console.log(val);
-    $.get(`https://itunes.apple.com/search?term=${val}&limit=5`, function(data){
+    $.get(`https://itunes.apple.com/search?term=${val}&limit=8`, function(data){
       data = JSON.parse(data);
       console.log(data);
       data.results.forEach(function(track){
@@ -45,10 +45,9 @@ $('#getPlaylistBtn').click(function (event) {
         let trackTitle = track.trackName;
         let trackArt = track.artworkUrl100;
         console.log(trackArt);
-        $('div#results').append(`<div><img src="${trackArt}" /><p>${trackArtist}</p><p><strong>${trackTitle}</strong></p></div>`);
+        $('div#results').append(`<div class='col-xs-3'><img src="${trackArt}" /><p>${trackArtist}</p><p><strong>${trackTitle}</strong></p></div>`);
       });
     });
-    
   });
   console.log('Testing Music Call');
 });
